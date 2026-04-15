@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>💓 Prediction Result</h2>
+
+    <!-- Risk Level & Color -->
+    {% if "Low" in risk %}
+        {% set color = "green" %}
+        <h3 class="low">{{ risk }}</h3>
+    {% elif "Medium" in risk %}
+        {% set color = "orange" %}
+        <h3 class="medium">{{ risk }}</h3>
+    {% else %}
+        {% set color = "red" %}
+        <h3 class="high">{{ risk }}</h3>
+    {% endif %}
+
+    <!-- Chart -->
+    <canvas id="riskChart" width="250" height="250"></canvas>
+
+    <div class="heart">💓</div>
+
+    <!-- Probability -->
+    <div class="result-percentage"
+         id="resultData"
+         data-probability="{{ probability }}"
+         data-color="{{ color }}">
+        {{ probability }}%
+    </div>
+
+    <br>
+
+    <!-- Medical Message -->
+    <div class="message-box">
+        <p><strong>{{ message }}</strong></p>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="recommendations">
+        <h3>🩺 Medical Recommendations</h3>
+        <ul>
+            {% for rec in recommendations %}
+                <li>{{ rec }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Explanation -->
+    <div class="explanation-box">
+        <h3>🧠 Why This Risk Was Predicted</h3>
+        <ul>
+            {% if explanations and explanations|length > 0 %}
+                {% for exp in explanations %}
+                    <li>{{ exp }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No major high-risk contributing factors detected.</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="disclaimer">
+        ⚠ This prediction is based on a machine learning model and is not a medical diagnosis.
+        Please consult a qualified healthcare professional.
+    </p>
+
+    <br>
+
+    <a href="/predict">
+        <button>Check Another</button>
+    </a>
+
+</div>
+
+<script>
+
+const resultElement = document.getElementById("resultData");
+
+const probability = parseFloat(resultElement.dataset.probability);
+const riskColor = resultElement.dataset.color;
+
+const ctx = document.getElementById("riskChart").getContext("2d");
+
+new Chart(ctx, {
+    type: "doughnut",
+    data: {
+        datasets: [{
+            data: [probability, 100 - probability],
+            backgroundColor: [riskColor, "#eee"],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        cutout: "70%",
+        plugins: {
+            tooltip: { enabled: false },
+            legend: { display: false }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>
