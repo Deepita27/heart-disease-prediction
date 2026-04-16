@@ -1,8 +1,16 @@
 # ❤️ Heart Disease Prediction System
 
-## 📌 Overview
+## 📌 Problem Statement
 
-This project is a Machine Learning-based web application that predicts the risk of heart disease based on patient medical data. It uses multiple classification algorithms and deploys the best-performing model using a Flask web interface.
+Heart disease is one of the leading causes of death worldwide. Early prediction using clinical data can significantly improve patient outcomes. This project aims to develop a Machine Learning + Deep Learning based system to predict heart disease risk.
+
+---
+
+## 🔄 System Pipeline
+
+Data Collection → Data Preprocessing → Feature Scaling →
+ML Models (Logistic, Decision Tree, Random Forest) →
+DL Model (ANN) → Prediction → Risk Classification → Recommendations
 
 ---
 
@@ -10,25 +18,31 @@ This project is a Machine Learning-based web application that predicts the risk 
 
 * Predicts heart disease probability
 * Risk classification (Low / Medium / High)
-* Personalized medical recommendations
+* Personalized recommendations
 * Explainable AI (feature importance)
-* Interactive web interface
+* Web-based user interface
 
 ---
 
-## 🧠 Machine Learning Models Used
+## 🧠 Models Used
+
+### 🔹 Machine Learning Models
 
 * Logistic Regression
 * Decision Tree
-* Random Forest (Selected Model)
+* Random Forest (Best ML Model)
+
+### 🔹 Deep Learning Model
+
+* Artificial Neural Network (ANN) using TensorFlow/Keras
 
 ---
 
 ## 📊 Dataset
 
 * UCI Cleveland Heart Disease Dataset
-* 303 patient records
-* 13 clinical features
+* 303 samples, 13 features
+* Includes attributes like age, cholesterol, ECG results, etc.
 
 ---
 
@@ -37,6 +51,7 @@ This project is a Machine Learning-based web application that predicts the risk 
 * Python
 * Flask
 * Scikit-learn
+* TensorFlow/Keras
 * HTML, CSS, Bootstrap
 
 ---
@@ -46,26 +61,77 @@ This project is a Machine Learning-based web application that predicts the risk 
 ```
 ├── app.py
 ├── model.pkl
+├── dl_model.h5
 ├── scaler.pkl
 ├── templates/
 ├── static/
 ├── data/
+├── requirements.txt
 ```
 
 ---
 
+## ▶️ How to Run the Project (IMPORTANT)
 
-## 📈 Results
+```bash
+git clone https://github.com/Deepita27/heart-disease-prediction.git
+cd heart-disease-prediction
+pip install -r requirements.txt
+python app.py
+```
 
-* Accuracy: 85%
-* Recall: 88%
-* Real-time prediction (<500ms)
+Open browser:
+
+```
+http://127.0.0.1:5000/
+```
+
+---
+
+## 📦 Dependencies
+
+* Flask
+* scikit-learn
+* pandas
+* numpy
+* tensorflow
+* gunicorn
+
+---
+
+## 📈 Model Performance Comparison
+
+| Model               | Accuracy | Recall |
+| ------------------- | -------- | ------ |
+| Logistic Regression | 85%      | 84%    |
+| Random Forest       | 85%      | 88%    |
+| ANN (Deep Learning) | 87%      | 90%    |
+
+---
+
+## 🧠 Justification of DL Model
+
+The ANN model captures complex non-linear relationships in medical data, leading to improved recall and prediction performance compared to traditional ML models.
+
+---
+
+## ⚙️ Optimization Techniques
+
+* Hyperparameter tuning
+* Epoch tuning
+* Feature scaling (StandardScaler)
+
+---
+
+## 📸 Sample Output
+
+(Add screenshots of input form and result page here)
 
 ---
 
 ## ⚠️ Disclaimer
 
-This project is for educational purposes only and not a certified medical tool.
+This system is a decision-support tool and not a replacement for professional medical diagnosis.
 
 ---
 
@@ -78,8 +144,9 @@ This project is for educational purposes only and not a certified medical tool.
 
 ---
 
-## ⭐ Future Improvements
+## ⭐ Future Enhancements
 
-* SHAP explainability
+* SHAP Explainability
 * Cloud deployment
-* Mobile app integration
+* Mobile application
+* Integration with hospital systems
